@@ -1,14 +1,16 @@
 from pydantic import BaseModel
 from enum import Enum
+from datetime import date
 
 class TipoUsuarioEnum(str, Enum):
     admin = 'admin'
-    jefe_tienda = 'jefe_tienda'
-    jefe_caja = 'jefe_caja'
+    bodeguero = 'bodeguero'
     promotor = 'promotor'
 
 class UsuarioBase(BaseModel):
-    nombre: str
+    cedula: str
+    nombres: str
+    apellidos: str
     email: str
     contrasena: str
     tipo_usuario: TipoUsuarioEnum
@@ -83,12 +85,23 @@ class TipoStockEnum(str, Enum):
     Stock1 = 'Stock1'
     Stock2 = 'Stock2'
 
-
 class StockBase(BaseModel):
+    codigo: str  # Agregar el campo "codigo"
     nombre_producto: str
     cantidad: int
     tipo_stock: TipoStockEnum
     id_almacen: int
+    fecha_recepcion: date  # Agregar el campo "fecha_recepcion"
+
+
+class StockBase(BaseModel):
+    codigo: str  # Agregar el campo "codigo"
+    nombre_producto: str
+    cantidad: int
+    tipo_stock: TipoStockEnum
+    id_almacen: int
+    fecha_recepcion: date  # Agregar el campo "fecha_recepcion"
+
 
 class StockCreate(StockBase):
     pass

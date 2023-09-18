@@ -1,0 +1,122 @@
+<h1>BODEGA</h1>
+<div class="container">
+    <h2>Ingresar Stock</h2>
+    <form (submit)="createStock()">
+        <div>
+            <label for="codigo">Código:</label>
+            <input type="text" id="codigo" [(ngModel)]="newStock.codigo" name="codigo" required>
+        </div>
+        <div>
+            <label for="nombreProducto">Nombre del Producto:</label>
+            <input type="text" id="nombreProducto" [(ngModel)]="newStock.nombre_producto" name="nombreProducto"
+                required>
+        </div>
+        <div>
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" [(ngModel)]="newStock.cantidad" name="cantidad" required>
+        </div>
+        <div>
+            <label for="tipoStock">Tipo de Stock:</label>
+            <select id="tipoStock" [(ngModel)]="newStock.tipo_stock" name="tipoStock" required>
+                <option value="Stock1">Stock1 - Demostración</option>
+                <option value="Stock2">Stock2 - Venta</option>
+            </select>
+        </div>
+        <div>
+            <label for="idAlmacen">ID de Almacén:</label>
+            <select id="idAlmacen" [(ngModel)]="newStock.id_almacen" name="idAlmacen" required>
+                <option value="1">1 - Bodega UIO</option>
+            </select>
+        </div>
+        <div>
+            <label for="fechaRecepcion">Fecha de Recepción:</label>
+            <input type="date" id="fechaRecepcion" [(ngModel)]="newStock.fecha_recepcion" name="fechaRecepcion"
+                required>
+        </div>
+        <br>
+        <button type="submit">Crear Stock</button>
+    </form>
+</div>
+
+<div class="container">
+    <div>
+        <button class="query-button" (click)="getStock()">Consultar Stock Disponible</button>
+    </div>
+    <div *ngIf="stockdata">
+        <h2 class="stock-title">Stock de Productos</h2>
+    </div>
+    <div *ngIf="stockdata">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre del Producto</th>
+                    <th>Cajetillas</th>
+                    <th>Tipo de Stock</th>
+                    <th>Fecha de Recepcion</th>
+                    <th>ID de Almacén</th>
+                    <th>Acciones</th> <!-- Agregamos una columna para las acciones -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of stockdata">
+                    <td>{{ item.codigo }}</td>
+                    <td>{{ item.nombre_producto }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>{{ item.tipo_stock }}</td>
+                    <td>{{ item.fecha_recepcion }}</td>
+                    <td>{{ item.id_almacen }}</td>
+                    <td>
+                        <button (click)="deleteStock(item.id)">Borrar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="container">
+    <h2>Modificar Stock</h2>
+    <select [(ngModel)]="selectedStock" (change)="editStock(selectedStock)">
+      <option value="">Selecciona un stock para editar</option>
+      <option *ngFor="let stock of stockdata" [ngValue]="stock">{{ stock.nombre_producto }}</option>
+    </select>
+    <div *ngIf="selectedStock">
+      <!-- Formulario de edición -->
+      <form (submit)="saveEdit()">
+        <div>
+          <label for="codigo">Código:</label>
+          <input type="text" id="codigo" [(ngModel)]="selectedStock.codigo" name="codigo" required>
+        </div>
+        <div>
+          <label for="nombreProducto">Nombre del Producto:</label>
+          <input type="text" id="nombreProducto" [(ngModel)]="selectedStock.nombre_producto" name="nombreProducto" required>
+        </div>
+        <div>
+          <label for="cantidad">Cantidad:</label>
+          <input type="number" id="cantidad" [(ngModel)]="selectedStock.cantidad" name="cantidad" required>
+        </div>
+        <div>
+          <label for="tipoStock">Tipo de Stock:</label>
+          <select id="tipoStock" [(ngModel)]="selectedStock.tipo_stock" name="tipoStock" required>
+            <option value="Stock1">Stock1 - Demostración</option>
+            <option value="Stock2">Stock2 - Venta</option>
+          </select>
+        </div>
+        <div>
+          <label for="idAlmacen">ID de Almacén:</label>
+          <select id="idAlmacen" [(ngModel)]="selectedStock.id_almacen" name="idAlmacen" required>
+            <option value="1">1 - Bodega UIO</option>
+          </select>
+        </div>
+        <div>
+          <label for="fechaRecepcion">Fecha de Recepción:</label>
+          <input type="date" id="fechaRecepcion" [(ngModel)]="selectedStock.fecha_recepcion" name="fechaRecepcion" required>
+        </div>
+        <br>
+        <button type="submit">Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+  

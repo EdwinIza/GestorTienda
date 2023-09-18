@@ -4,14 +4,22 @@ from app.database import Base,engine
 
 Base.metadata.create_all(bind=engine)
 
+from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
 class Usuario(Base):
     __tablename__ = "usuarios"
 
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, index=True)
+    cedula = Column(String, nullable=False, index=True)
+    nombres = Column(String, index=True)
+    apellidos = Column(String, nullable=False)
     email = Column(String, unique=True, index=True)
     contrasena = Column(String)
-    tipo_usuario = Column(Enum('admin', 'jefe_tienda', 'jefe_caja', 'promotor'), nullable=False)
+    tipo_usuario = Column(Enum('admin', 'bodeguero', 'promotor'), nullable=False)
+
 
 class Tienda(Base):
     __tablename__ = "tiendas"
@@ -38,9 +46,11 @@ class Stock(Base):
     __tablename__ = "stock"
 
     id = Column(Integer, primary_key=True, index=True)
-    nombre_producto = Column(String)
+    codigo = Column(String, unique=True, index=True)  # Agregar el campo "codigo"
+    nombre_producto = Column(String, index=True)
     cantidad = Column(Integer)
     tipo_stock = Column(Enum('Stock1', 'Stock2'), nullable=False)
+    fecha_recepcion = Column(Date)  # Agregar el campo "fecha_recepcion"
     id_almacen = Column(Integer, ForeignKey("almacenes.id"))
 
     # almacen = relationship("Almacen", back_populates="stock")

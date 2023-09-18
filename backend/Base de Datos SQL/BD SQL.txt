@@ -1,0 +1,57 @@
+-- Crear la base de datos
+CREATE DATABASE gestionTienda;
+
+-- Usar la base de datos recién creada
+USE gestionTienda;
+
+-- Tabla para almacenar información de los usuarios
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    contrasena VARCHAR(255) NOT NULL,
+    tipo_usuario ENUM('admin', 'jefe_tienda', 'jefe_caja', 'promotor') NOT NULL
+);
+
+-- Tabla para almacenar información de las tiendas
+CREATE TABLE tiendas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    direccion VARCHAR(255) NOT NULL
+);
+
+-- Tabla para almacenar información de los almacenes
+CREATE TABLE almacenes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    ubicacion VARCHAR(255) NOT NULL
+);
+
+-- Tabla para almacenar información del stock
+CREATE TABLE stock (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_producto VARCHAR(255) NOT NULL,
+    cantidad INT NOT NULL,
+    tipo_stock ENUM('Stock1', 'Stock2') NOT NULL,
+    id_almacen INT,
+    FOREIGN KEY (id_almacen) REFERENCES almacenes(id)
+);
+
+-- Tabla para almacenar información de los clientes
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    direccion VARCHAR(255) NOT NULL
+);
+
+-- Tabla para almacenar información de las asignaciones de stock
+CREATE TABLE asignaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_promotor INT,
+    id_cliente INT,
+    id_stock INT,
+    fecha_asignacion DATE,
+    FOREIGN KEY (id_promotor) REFERENCES usuarios(id),
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id),
+    FOREIGN KEY (id_stock) REFERENCES stock(id)
+);

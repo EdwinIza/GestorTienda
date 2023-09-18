@@ -6,11 +6,17 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PruebaApiComponent } from './prueba-api/prueba-api.component';
+import { BodegaComponent } from './bodega/bodega.component';
+import { AdminComponent } from './admin/admin.component';
+import { PromotorComponent } from './promotor/promotor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PruebaApiComponent
+    PruebaApiComponent,
+    BodegaComponent,
+    AdminComponent,
+    PromotorComponent
   ],
   imports: [
     HttpClientModule,

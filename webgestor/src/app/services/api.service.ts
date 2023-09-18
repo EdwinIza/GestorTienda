@@ -35,9 +35,25 @@ export class ApiService {
     return this.http.get<any[]>(`${this.baseUrl}/stock`);
   }
 
+  // Obtener un elemento de stock por su ID
+getStockById(stockId: number): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/stock/${stockId}`);
+}
+
+
   createStock(stock: any): Observable<any>{
     return this.http.post<any>(`${this.baseUrl}/stock/`, stock);
   }
+
+  // Actualizar un elemento de stock por su ID
+updateStock(stockId: number, stock: any): Observable<any> {
+  return this.http.put<any>(`${this.baseUrl}/stock/${stockId}`, stock);
+}
+
+// Eliminar un elemento de stock por su ID
+deleteStock(stockId: number): Observable<any> {
+  return this.http.delete<any>(`${this.baseUrl}/stock/${stockId}`);
+}
 
 //CLIENTES
   getClientes():Observable<any[]> {
