@@ -79,10 +79,15 @@ class ClienteUpdate(BaseModel):
     nombre: str
     direccion: str
 
+class TipoStockEnum(str, Enum):
+    Stock1 = 'Stock1'
+    Stock2 = 'Stock2'
+
+
 class StockBase(BaseModel):
     nombre_producto: str
     cantidad: int
-    tipo_stock: Enum('Stock1', 'Stock2')
+    tipo_stock: TipoStockEnum
     id_almacen: int
 
 class StockCreate(StockBase):

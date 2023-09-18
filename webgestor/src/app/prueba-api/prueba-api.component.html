@@ -1,0 +1,159 @@
+<button (click)="testApiConnection()">Consultar Usuarios</button>
+
+<div *ngIf="responseData && responseData.length > 0">
+  <h2>Usuarios</h2>
+  <ul>
+    <li *ngFor="let usuario of responseData">
+      <label for="nombre">Nombre:</label> {{ usuario.nombre }}
+      <br>
+      <label for="email">Email:</label> {{ usuario.email }}
+      <br>
+      <label for="contrasena">Contraseña:</label> {{ usuario.contrasena }}
+      <br>
+      <label for="tipo_usuario">Tipo de Usuario:</label> {{ usuario.tipo_usuario }}
+    </li>
+  </ul>
+</div>
+
+<h2>Crear Nuevo Usuario</h2>
+
+<form (submit)="createUser()">
+  <div>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" [(ngModel)]="newUser.nombre" name="nombre" required>
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" [(ngModel)]="newUser.email" name="email" required>
+  </div>
+  <div>
+    <label for="contrasena">Contraseña:</label>
+    <input type="password" id="contrasena" [(ngModel)]="newUser.contrasena" name="contrasena" required>
+  </div>
+  <div>
+    <label for="tipoUsuario">Tipo de Usuario:</label>
+    <select id="tipoUsuario" [(ngModel)]="newUser.tipo_usuario" name="tipoUsuario" required>
+      <option value="admin">admin</option>
+      <option value="jefe_tienda">jefe tienda</option>
+      <option value="jefe_caja">jefe caja</option>
+      <option value="promotor">promotor</option>
+    </select>
+  </div>
+  <button type="submit">Crear Usuario</button>
+</form>
+
+
+<h2>Buscar Usuario por ID</h2>
+<form (submit)="getUserById()">
+  <div>
+    <label for="userId">ID de Usuario:</label>
+    <input type="number" id="userId" [(ngModel)]="userId" name="userId" required>
+  </div>
+  <button type="submit">Buscar Usuario</button>
+</form>
+
+<div *ngIf="userDetails">
+  <h2>Detalles del Usuario</h2>
+  <form (submit)="updateUser()">
+    <input type="hidden" [(ngModel)]="userDetails.id" name="id">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" [(ngModel)]="userDetails.nombre" name="nombre" required>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" [(ngModel)]="userDetails.email" name="email" required>
+    </div>
+    <div>
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" id="contrasena" [(ngModel)]="userDetails.contrasena" name="contrasena" required>
+    </div>
+    <div>
+      <label for="tipoUsuario">Tipo de Usuario:</label>
+      <select id="tipoUsuario" [(ngModel)]="userDetails.tipo_usuario" name="tipoUsuario" required>
+        <option value="admin">admin</option>
+        <option value="jefe_tienda">jefe tienda</option>
+        <option value="jefe_caja">jefe caja</option>
+        <option value="promotor">promotor</option>
+      </select>
+    </div>
+    <button type="submit">Actualizar Usuario</button>
+  </form>
+</div>
+
+<h2>Stock de Productos</h2>
+<div *ngIf="stockdata">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre del Producto</th>
+        <th>Cantidad</th>
+        <th>Tipo de Stock</th>
+        <th>ID de Almacén</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of stockdata">
+        <td>{{ item.nombre_producto }}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.tipo_stock }}</td>
+        <td>{{ item.id_almacen }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<h2>Crear Nuevo Producto</h2>
+<form (submit)="createStock()">
+  <div>
+    <label for="nombreProducto">Nombre del Producto:</label>
+    <input type="text" id="nombreProducto" [(ngModel)]="newStock.nombre_producto" name="nombreProducto" required>
+  </div>
+  <div>
+    <label for="cantidad">Cantidad:</label>
+    <input type="number" id="cantidad" [(ngModel)]="newStock.cantidad" name="cantidad" required>
+  </div>
+  <div>
+    <label for="tipoStock">Tipo de Stock:</label>
+    <input type="text" id="tipoStock" [(ngModel)]="newStock.tipo_stock" name="tipoStock" required>
+  </div>
+  <div>
+    <label for="idAlmacen">ID de Almacén:</label>
+    <input type="number" id="idAlmacen" [(ngModel)]="newStock.id_almacen" name="idAlmacen" required>
+  </div>
+  <button type="submit">Crear Producto</button>
+</form>
+
+
+<h2>Clientes</h2>
+<div *ngIf="clienteData && clienteData.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Dirección</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clienteData">
+        <td>{{ cliente.nombre }}</td>
+        <td>{{ cliente.direccion }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<h2>Crear Nuevo Cliente</h2>
+<form (submit)="createClientes()">
+  <div>
+    <label for="nombreCliente">Nombre del Cliente:</label>
+    <input type="text" id="nombreCliente" [(ngModel)]="newCliente.nombre" name="nombreCliente" required>
+  </div>
+  <div>
+    <label for="direccionCliente">Dirección del Cliente:</label>
+    <input type="text" id="direccionCliente" [(ngModel)]="newCliente.direccion" name="direccionCliente" required>
+  </div>
+  <button type="submit">Crear Cliente</button>
+</form>

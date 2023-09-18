@@ -52,3 +52,4 @@ def delete_cliente(cliente_id: int, db: Session = Depends(Base)):
     db.delete(db_cliente)
     db.commit()
     return db_cliente
+

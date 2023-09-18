@@ -52,3 +52,6 @@ def delete_stock_item(stock_id: int, db: Session = Depends(Base)):
     db.delete(db_stock_item)
     db.commit()
     return db_stock_item
+
+#CLIENTES
+
